@@ -4,8 +4,14 @@ from . import manager
 
 # User model customization
 class CustomUser(AbstractUser):
+    USER_ROLE = (
+        ('admin', 'Admin'),
+        ('instructor', 'Instructor'),
+        ('student', 'Student'),
+    )
     username = None
     phone_number = models.CharField(max_length=14, unique=True)
+    role = models.CharField(max_length=50, choices=USER_ROLE, default='student')
 
     USERNAME_FIELD = 'phone_number'
     REQUIRED_FIELDS = []
