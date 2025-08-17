@@ -6,6 +6,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from . import models
 from . import serializers
+import random
 
 class RegistrationViewSet(APIView):
     def get(self, request):
@@ -80,3 +81,32 @@ class RefreshView(APIView):
         return Response({
             'access' : str(token.access_token)
         })
+    
+class ForgotPasswordViewSet(APIView):
+    def get(self, request):
+        return Response("Forgot password(GET)")
+    
+    def post(self, request):
+        phone_number = request.data.get('phone_number')
+
+        if not phone_number:
+            return Response({
+                "error" : "Phone number is required."
+            })
+
+        try:
+            user = models.CustomUser.objects.get(phone_number = phone_number)
+            models.Verification.objects.filter(user = user).delete()
+            otp = random.randint(100000, 999999)
+            models.Verification.objects.create(
+                user = user,
+                otp = otp
+            )
+            return Response({
+                "success" : "OTP sent successfully."
+            })
+
+        except models.CustomUser.DoesNotExist:
+            return Response({
+                "error" : "User does not exist."
+            })
