@@ -7,4 +7,6 @@ urlpatterns = [
     path('protected/', views.protected_view, name='protected'),
     path('refresh/', views.RefreshView.as_view(), name='refresh'),
     path('forgot-password/', views.ForgotPasswordViewSet.as_view(), name='forgot-password'),
+    path('verification/', views.VerificationViewSet.as_view(), name='verification'),
+    path('password-reset/', views.PasswordResetViewSet.as_view(), name='password-reset'),
 ]

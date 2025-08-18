@@ -34,3 +34,24 @@ class RegistrationSerializer(serializers.ModelSerializer):
             password = validated_data['password_1']
         )
         return user
+    
+class PasswordResetSerializer(serializers.Serializer):
+    phone_number =serializers.CharField()
+    password_1 = serializers.CharField(
+        write_only = True,
+        required = True,
+        validators = [validate_password]
+    )
+    password_2 = serializers.CharField(
+        write_only = True,
+        required = True,
+        validators = [validate_password]
+    )
+
+    class Meta:
+        fields = ['phone_number', 'password_1', 'password_2']
+
+    def validate(self, attrs):
+        if attrs['password_1'] != attrs['password_2']:
+            raise serializers.ValidationError("Passwords don't match.")
+        return attrs
