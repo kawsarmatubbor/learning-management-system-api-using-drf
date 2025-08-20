@@ -113,3 +113,59 @@ class CourseDetailViewSet(APIView):
             return Response({
                 "error" : "Course not found."
             })
+        
+class ModuleViewSet(APIView):
+    permission_classes = [permissions.IsTeacherOrReadOnly]
+
+    def get(self, request):
+        modules = models.Module.objects.filter(is_active = True)
+        serializer = serializers.ModuleSerializer(modules, many = True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = serializers.ModuleSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+class ModelDetailViewSet(APIView):
+    permission_classes = [permissions.IsTeacherOrReadOnly]
+
+    def get(self, request, pk):
+        try:
+            module = models.Module.objects.get(pk = pk)
+            serializer = serializers.ModuleSerializer(module)
+            return Response(serializer.data)
+        
+        except models.Module.DoesNotExist:
+            return Response({
+                "error" : "Module not found."
+            })
+        
+    def put(self, request, pk):
+        try:
+            module = models.Module.objects.get(pk = pk)
+            serializer = serializers.ModuleSerializer(module, data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors)
+        
+        except models.Module.DoesNotExist:
+            return Response({
+                "error" : "Module not found."
+            })
+        
+    def delete(self, request, pk):
+        try:
+            module = models.Module.objects.get(pk = pk)
+            module.delete()
+            return Response({
+                "success" : "Module deleted successfully."
+            })
+        
+        except models.Module.DoesNotExist:
+            return Response({
+                "error" : "Module not found."
+            })

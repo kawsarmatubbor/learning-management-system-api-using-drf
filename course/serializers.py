@@ -16,3 +16,13 @@ class CourseSerializer(serializers.ModelSerializer):
                 'allow_blank' : True
             }
         }
+
+class ModuleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.Module
+        fields = ['id', 'course', 'title', 'description', 'is_active']
+        extra_kwargs = {
+            'description' : {
+                'required' : False
+            }
+        }
