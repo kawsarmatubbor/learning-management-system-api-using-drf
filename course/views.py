@@ -169,3 +169,115 @@ class ModelDetailViewSet(APIView):
             return Response({
                 "error" : "Module not found."
             })
+        
+class CourseTeacherViewSet(APIView):
+    permission_classes = [permissions.IsAdminOrReadOnly]
+
+    def get(self, request):
+        course_teachers = models.CourseTeacher.objects.filter(is_active = True)
+        serializer = serializers.CourseTeacherSerializer(course_teachers, many = True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = serializers.CourseTeacherSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+class CourseTeacherDetailViewSet(APIView):
+    permission_classes = [permissions.IsAdminOrReadOnly]
+
+    def get(self, request, pk):
+        try:
+            course_teacher = models.CourseTeacher.objects.get(pk = pk)
+            serializer = serializers.CourseTeacherSerializer(course_teacher)
+            return Response(serializer.data)
+        
+        except models.CourseTeacher.DoesNotExist:
+            return Response({
+                "error" : "Course teacher not found."
+            })
+        
+    def put(self, request, pk):
+        try:
+            course_teacher = models.CourseTeacher.objects.get(pk = pk)
+            serializer = serializers.CourseTeacherSerializer(course_teacher, data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors)
+        
+        except models.CourseTeacher.DoesNotExist:
+            return Response({
+                "error" : "Course teacher not found."
+            })
+        
+    def delete(self, request, pk):
+        try:
+            course_teacher = models.CourseTeacher.objects.get(pk = pk)
+            course_teacher.delete()
+            return Response({
+                "success" : "Course teacher deleted successfully."
+            })
+        
+        except models.CourseTeacher.DoesNotExist:
+            return Response({
+                "error" : "Course teacher not found."
+            })
+    
+class CourseStudentViewSet(APIView):
+    permission_classes = [permissions.IsTeacherOrReadOnly]
+
+    def get(self, request):
+        course_students = models.CourseStudent.objects.filter(is_active = True)
+        serializer = serializers.CourseStudentSerializer(course_students, many = True)
+        return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = serializers.CourseStudentSerializer(data = request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors)
+    
+class CourseStudentDetailViewSet(APIView):
+    permission_classes = [permissions.IsAdminOrReadOnly]
+    
+    def get(self, request, pk):
+        try:
+            course_student = models.CourseStudent.objects.get(pk = pk)
+            serializer = serializers.CourseStudentSerializer(course_student)
+            return Response(serializer.data)
+        
+        except models.CourseStudent.DoesNotExist:
+            return Response({
+                "error" : "Course student not found."
+            })
+        
+    def put(self, request, pk):
+        try:
+            course_student = models.CourseStudent.objects.get(pk = pk)
+            serializer = serializers.CourseStudentSerializer(course_student, data = request.data)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors)
+        
+        except models.CourseStudent.DoesNotExist:
+            return Response({
+                "error" : "Course student not found."
+            })
+        
+    def delete(self, request, pk):
+        try:
+            course_student = models.CourseStudent.objects.get(pk = pk)
+            course_student.delete()
+            return Response({
+                "success" : "Course student deleted successfully."
+            })
+        
+        except models.CourseStudent.DoesNotExist:
+            return Response({
+                "error" : "Course student not found."
+            })

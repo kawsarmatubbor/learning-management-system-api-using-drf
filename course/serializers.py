@@ -26,3 +26,13 @@ class ModuleSerializer(serializers.ModelSerializer):
                 'required' : False
             }
         }
+
+class CourseTeacherSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CourseTeacher
+        fields = ['id', 'course', 'teacher', 'is_active']
+
+class CourseStudentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CourseStudent
+        fields = ['id', 'course', 'student', 'is_active']

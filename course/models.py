@@ -45,3 +45,17 @@ class Module(models.Model):
 
     def __str__(self):
         return self.title
+    
+class CourseTeacher(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    teacher = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE, limit_choices_to={'role__in' : ['admin', 'teacher']})
+    is_active = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
+
+class CourseStudent(models.Model):
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    student = models.ForeignKey("accounts.CustomUser", on_delete=models.CASCADE, limit_choices_to={'role' : 'student'})
+    is_active = models.BooleanField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateField(auto_now=True)
