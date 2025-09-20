@@ -54,7 +54,7 @@ body {
 .header .logo {
     font-size: 24px;
     font-weight: 600;
-    color: var(--primary-color-lgt);
+    color: var(--primary-color-drk);
 }
 .header .main-menu {
     list-style: none;
@@ -73,4 +73,41 @@ body {
 /* Container-style */
 .container {
     padding: 30px 10%;
+}
+.container .container-title {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Course-style */
+.courses {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+.courses .course {
+    padding: 10px;
+    background: var(--gray-color-lgt);
+    border-radius: 20px;
+}
+.courses .course .thumbnail-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    overflow: hidden;
+}
+.courses .course .thumbnail-wrapper .thumbnail {
+    height: 100%;
+    width: 100%;
+}
+.courses .course .course-info {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+.courses .course .course-info .title {
+    width: 100%;
 }

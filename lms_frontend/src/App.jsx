@@ -1,15 +1,13 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header/Header";
+import Home from "./Pages/Home/Home";
 
 function App() {
     return (
         <BrowserRouter>
             <Header />
             <Routes>
-                <Route
-                    path="/"
-                    element={<div className="container">Home</div>}
-                />
+                <Route path="/" element={<Home />} />
                 <Route
                     path="/about"
                     element={<div className="container">About</div>}
