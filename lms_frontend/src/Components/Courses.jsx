@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Courses() {
     const [courses, setCourses] = useState([]);
@@ -14,7 +15,7 @@ function Courses() {
     }, []);
 
     return (
-        <>
+        <div className="container">
             <h1 className="container-title">Our Courses</h1>
             <div className="courses">
                 {courses.map((course) => (
@@ -33,14 +34,17 @@ function Courses() {
                             </div>
                             <h4 className="course-title">{course.title}</h4>
                             <h2 className="course-price">{course.price} BDT</h2>
-                            <button type="submit" className="button">
-                                Enroll now
-                            </button>
+                            <Link
+                                to={`/courses/${course.slug}`}
+                                className="button"
+                            >
+                                Details
+                            </Link>
                         </div>
                     </div>
                 ))}
             </div>
-        </>
+        </div>
     );
 }
 

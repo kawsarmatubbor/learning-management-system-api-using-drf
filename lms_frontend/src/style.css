@@ -98,8 +98,10 @@ body {
     overflow: hidden;
 }
 .courses .course .thumbnail-wrapper .thumbnail {
+    aspect-ratio: 4/3;
     height: 100%;
     width: 100%;
+    object-fit: cover;
 }
 .courses .course .course-info {
     padding: 10px;
@@ -110,4 +112,46 @@ body {
 }
 .courses .course .course-info .title {
     width: 100%;
+}
+
+/* Course-detail-style */
+.course-detail {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 50px;
+}
+.course-detail .thumbnail-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+.course-detail .thumbnail-wrapper .thumbnail {
+    aspect-ratio: 4/3;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+.course-detail .course-detail-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Category-style */
+.categories {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+.categories .category {
+    padding: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-color);
+    background: var(--gray-color-lgt);
+    border-radius: 10px;
 }

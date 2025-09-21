@@ -22,9 +22,9 @@ class CategoriesViewSet(APIView):
 class CategoryDetailViewSet(APIView):
     permission_classes = [permissions.IsAdminOrReadOnly]
 
-    def get(self, request, pk):
+    def get(self, request, slug):
         try:
-            category = models.Category.objects.get(pk = pk)
+            category = models.Category.objects.get(slug = slug)
             serializer = serializers.CategorySerializer(category)
             return Response(serializer.data)
         
@@ -33,9 +33,9 @@ class CategoryDetailViewSet(APIView):
                 "error" : "Category not found."
             })
         
-    def put(self, request, pk):
+    def put(self, request, slug):
         try:
-            category = models.Category.objects.get(pk = pk)
+            category = models.Category.objects.get(slug = slug)
             serializer = serializers.CategorySerializer(category, data = request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -47,9 +47,9 @@ class CategoryDetailViewSet(APIView):
                 "error" : "Category not found."
             })
         
-    def delete(self, request, pk):
+    def delete(self, request, slug):
         try:
-            category = models.Category.objects.get(pk = pk)
+            category = models.Category.objects.get(slug = slug)
             category.delete()
             return Response({
                 "success" : "Category deleted successfully."
@@ -76,9 +76,9 @@ class CourseViewSet(APIView):
         return Response(serializer.errors)
     
 class CourseDetailViewSet(APIView):
-    def get(self, request, pk):
+    def get(self, request, slug):
         try:
-            course = models.Course.objects.get(pk = pk)
+            course = models.Course.objects.get(slug = slug)
             serializer = serializers.CourseSerializer(course)
             return Response(serializer.data)
         
@@ -87,9 +87,9 @@ class CourseDetailViewSet(APIView):
                 "error" : "Course not found."
             })
         
-    def put(self, request, pk):
+    def put(self, request, slug):
         try:
-            course = models.Course.objects.get(pk = pk)
+            course = models.Course.objects.get(slug = slug)
             serializer = serializers.CourseSerializer(course, data = request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -101,9 +101,9 @@ class CourseDetailViewSet(APIView):
                 "error" : "Course not found."
             })
         
-    def delete(self, request, pk):
+    def delete(self, request, slug):
         try:
-            course = models.Course.objects.get(pk = pk)
+            course = models.Course.objects.get(slug = slug)
             course.delete()
             return Response({
                 "success" : "Course deleted successfully."
@@ -132,9 +132,9 @@ class ModuleViewSet(APIView):
 class ModelDetailViewSet(APIView):
     permission_classes = [permissions.IsTeacherOrReadOnly]
 
-    def get(self, request, pk):
+    def get(self, request, slug):
         try:
-            module = models.Module.objects.get(pk = pk)
+            module = models.Module.objects.get(slug = slug)
             serializer = serializers.ModuleSerializer(module)
             return Response(serializer.data)
         
@@ -143,9 +143,9 @@ class ModelDetailViewSet(APIView):
                 "error" : "Module not found."
             })
         
-    def put(self, request, pk):
+    def put(self, request, slug):
         try:
-            module = models.Module.objects.get(pk = pk)
+            module = models.Module.objects.get(slug = slug)
             serializer = serializers.ModuleSerializer(module, data = request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -157,9 +157,9 @@ class ModelDetailViewSet(APIView):
                 "error" : "Module not found."
             })
         
-    def delete(self, request, pk):
+    def delete(self, request, slug):
         try:
-            module = models.Module.objects.get(pk = pk)
+            module = models.Module.objects.get(slug = slug)
             module.delete()
             return Response({
                 "success" : "Module deleted successfully."
@@ -188,9 +188,9 @@ class CourseTeacherViewSet(APIView):
 class CourseTeacherDetailViewSet(APIView):
     permission_classes = [permissions.IsAdminOrReadOnly]
 
-    def get(self, request, pk):
+    def get(self, request, slug):
         try:
-            course_teacher = models.CourseTeacher.objects.get(pk = pk)
+            course_teacher = models.CourseTeacher.objects.get(slug = slug)
             serializer = serializers.CourseTeacherSerializer(course_teacher)
             return Response(serializer.data)
         
@@ -199,9 +199,9 @@ class CourseTeacherDetailViewSet(APIView):
                 "error" : "Course teacher not found."
             })
         
-    def put(self, request, pk):
+    def put(self, request, slug):
         try:
-            course_teacher = models.CourseTeacher.objects.get(pk = pk)
+            course_teacher = models.CourseTeacher.objects.get(slug = slug)
             serializer = serializers.CourseTeacherSerializer(course_teacher, data = request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -213,9 +213,9 @@ class CourseTeacherDetailViewSet(APIView):
                 "error" : "Course teacher not found."
             })
         
-    def delete(self, request, pk):
+    def delete(self, request, slug):
         try:
-            course_teacher = models.CourseTeacher.objects.get(pk = pk)
+            course_teacher = models.CourseTeacher.objects.get(slug = slug)
             course_teacher.delete()
             return Response({
                 "success" : "Course teacher deleted successfully."
@@ -244,9 +244,9 @@ class CourseStudentViewSet(APIView):
 class CourseStudentDetailViewSet(APIView):
     permission_classes = [permissions.IsAdminOrReadOnly]
     
-    def get(self, request, pk):
+    def get(self, request, slug):
         try:
-            course_student = models.CourseStudent.objects.get(pk = pk)
+            course_student = models.CourseStudent.objects.get(slug = slug)
             serializer = serializers.CourseStudentSerializer(course_student)
             return Response(serializer.data)
         
@@ -255,9 +255,9 @@ class CourseStudentDetailViewSet(APIView):
                 "error" : "Course student not found."
             })
         
-    def put(self, request, pk):
+    def put(self, request, slug):
         try:
-            course_student = models.CourseStudent.objects.get(pk = pk)
+            course_student = models.CourseStudent.objects.get(slug = slug)
             serializer = serializers.CourseStudentSerializer(course_student, data = request.data)
             if serializer.is_valid():
                 serializer.save()
@@ -269,9 +269,9 @@ class CourseStudentDetailViewSet(APIView):
                 "error" : "Course student not found."
             })
         
-    def delete(self, request, pk):
+    def delete(self, request, slug):
         try:
-            course_student = models.CourseStudent.objects.get(pk = pk)
+            course_student = models.CourseStudent.objects.get(slug = slug)
             course_student.delete()
             return Response({
                 "success" : "Course student deleted successfully."
@@ -281,3 +281,10 @@ class CourseStudentDetailViewSet(APIView):
             return Response({
                 "error" : "Course student not found."
             })
+        
+class CategoryCourseViewSet(APIView):
+    def get(self, request, slug):
+        category = models.Category.objects.get(slug = slug)
+        courses = models.Course.objects.filter(category = category)
+        serializer = serializers.CourseSerializer(courses, many = True)
+        return Response(serializer.data)

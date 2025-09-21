@@ -1,6 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Header from "./Components/Header/Header";
-import Home from "./Pages/Home/Home";
+import Home from "./Pages/Home";
+import CoursesDetail from "./Pages/CoursesDetail";
+import CategoriesDetail from "./Pages/CategoriesDetail";
 
 function App() {
     return (
@@ -8,6 +10,11 @@ function App() {
             <Header />
             <Routes>
                 <Route path="/" element={<Home />} />
+                <Route path="/courses/:slug" element={<CoursesDetail />} />
+                <Route
+                    path="/categories/:slug"
+                    element={<CategoriesDetail />}
+                />
                 <Route
                     path="/about"
                     element={<div className="container">About</div>}
