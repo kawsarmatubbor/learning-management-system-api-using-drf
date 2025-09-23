@@ -3,6 +3,7 @@ import Header from "./Components/Header/Header";
 import Home from "./Pages/Home";
 import CoursesDetail from "./Pages/CoursesDetail";
 import CategoriesDetail from "./Pages/CategoriesDetail";
+import Login from "./Pages/Login";
 
 function App() {
     return (
@@ -23,10 +24,7 @@ function App() {
                     path="/contact"
                     element={<div className="container">Contact</div>}
                 />
-                <Route
-                    path="/login"
-                    element={<div className="container">Login</div>}
-                />
+                <Route path="/login" element={<Login />} />
             </Routes>
         </BrowserRouter>
     );

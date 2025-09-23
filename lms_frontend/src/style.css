@@ -155,3 +155,35 @@ body {
     background: var(--gray-color-lgt);
     border-radius: 10px;
 }
+
+/* Login-style */
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.login .login-form {
+    width: 300px;
+}
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 20px;
+}
+form .form-group {
+    width: 100%;
+}
+label {
+    margin-bottom: 10px;
+    display: block;
+    font-weight: 600;
+    color: var(--dark-color);
+}
+input {
+    padding: 10px;
+    width: 100%;
+    border: 1px solid var(--gray-color-drk);
+    border-radius: 5px;
+    outline: none;
+}
