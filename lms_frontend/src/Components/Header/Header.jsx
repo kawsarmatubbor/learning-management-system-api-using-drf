@@ -1,6 +1,10 @@
+import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../context/AuthContext";
 
 function Header() {
+    const { access, logout } = useContext(AuthContext);
+
     return (
         <header className="header">
             <Link to="/" className="logo">
@@ -17,9 +21,20 @@ function Header() {
                     <Link to="/contact">Contact</Link>
                 </li>
             </ul>
-            <Link to="/login" className="button">
-                Login
-            </Link>
+            {access ? (
+                <div className="button-wrapper">
+                    <Link to="/profile" className="button">
+                        Profile
+                    </Link>
+                    <button className="button secondary" onClick={logout}>
+                        Logout
+                    </button>
+                </div>
+            ) : (
+                <Link to="/login" className="button">
+                    Login
+                </Link>
+            )}
         </header>
     );
 }

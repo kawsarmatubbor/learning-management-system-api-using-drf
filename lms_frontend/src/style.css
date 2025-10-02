@@ -25,6 +25,11 @@ body {
 }
 
 /* Button-style */
+.button-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
 .button {
     all: unset;
     padding: 10px 20px;
@@ -41,6 +46,10 @@ body {
 }
 .button:hover {
     background: var(--primary-color-drk);
+}
+.button.secondary {
+    color: var(--dark-color);
+    background: var(--gray-color-mdm);
 }
 
 /* Header-style */

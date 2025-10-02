@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 function Login() {
     const [formData, setFormData] = useState({
         phone_number: "",
         password: "",
     });
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handelChange = (e) => {
@@ -25,18 +27,8 @@ function Login() {
 
     const handelSubmit = async (e) => {
         e.preventDefault();
-        const response = await axios.post(
-            "http://127.0.0.1:8000/login/",
-            formData
-        );
-
+        login(formData);
         handleReset();
-
-        const { access, refresh } = response.data;
-
-        localStorage.setItem("access", access);
-        localStorage.setItem("refresh", refresh);
-
         navigate("/");
     };
 
