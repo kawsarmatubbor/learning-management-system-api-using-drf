@@ -19,7 +19,7 @@ function Courses() {
             <h1 className="container-title">Our Courses</h1>
             <div className="courses">
                 {courses.map((course) => (
-                    <div className="course">
+                    <div className="course" key={course.id}>
                         <div className="course-info">
                             <div className="thumbnail-wrapper">
                                 <img

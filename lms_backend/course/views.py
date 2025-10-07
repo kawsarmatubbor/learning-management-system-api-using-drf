@@ -1,5 +1,8 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from accounts.models import CustomUser
+from accounts.serializers import UserSerializer
 from . import permissions
 from . import serializers
 from . import models
@@ -59,6 +62,13 @@ class CategoryDetailViewSet(APIView):
             return Response({
                 "error" : "Category not found."
             })
+
+@api_view(['GET'])
+def category_courses_view(request, slug):
+    category = models.Category.objects.get(slug = slug)
+    courses = models.Course.objects.filter(category = category)
+    serializer = serializers.CourseSerializer(courses, many = True)
+    return Response(serializer.data)
         
 class CourseViewSet(APIView):
     permission_classes = [permissions.IsAdminOrReadOnly]
@@ -114,11 +124,12 @@ class CourseDetailViewSet(APIView):
                 "error" : "Course not found."
             })
         
-class ModuleViewSet(APIView):
+class CourseModulesViewSet(APIView):
     permission_classes = [permissions.IsTeacherOrReadOnly]
 
-    def get(self, request):
-        modules = models.Module.objects.filter(is_active = True)
+    def get(self, request, slug):
+        course = models.Course.objects.get(slug = slug)
+        modules = models.Module.objects.filter(course = course)
         serializer = serializers.ModuleSerializer(modules, many = True)
         return Response(serializer.data)
     
@@ -170,12 +181,16 @@ class ModelDetailViewSet(APIView):
                 "error" : "Module not found."
             })
         
-class CourseTeacherViewSet(APIView):
+class CourseTeachersViewSet(APIView):
     permission_classes = [permissions.IsAdminOrReadOnly]
 
-    def get(self, request):
-        course_teachers = models.CourseTeacher.objects.filter(is_active = True)
-        serializer = serializers.CourseTeacherSerializer(course_teachers, many = True)
+    def get(self, request, slug):
+        course = models.Course.objects.get(slug = slug)
+        course_teachers = models.CourseTeacher.objects.filter(course = course)
+        teachers = []
+        for ct in course_teachers:
+            teachers.append(ct.teacher)
+        serializer = UserSerializer(teachers, many = True)
         return Response(serializer.data)
     
     def post(self, request):
@@ -282,9 +297,3 @@ class CourseStudentDetailViewSet(APIView):
                 "error" : "Course student not found."
             })
         
-class CategoryCourseViewSet(APIView):
-    def get(self, request, slug):
-        category = models.Category.objects.get(slug = slug)
-        courses = models.Course.objects.filter(category = category)
-        serializer = serializers.CourseSerializer(courses, many = True)
-        return Response(serializer.data)

@@ -148,6 +148,9 @@ body {
     align-items: flex-start;
     gap: 20px;
 }
+.modules {
+    padding: 20px 0;
+}
 
 /* Category-style */
 .categories {

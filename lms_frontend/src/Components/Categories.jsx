@@ -22,6 +22,7 @@ function Categories() {
                     <Link
                         to={`/categories/${category.slug}`}
                         className="category"
+                        key={category.id}
                     >
                         {category.title}
                     </Link>

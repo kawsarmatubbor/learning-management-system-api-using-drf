@@ -4,13 +4,9 @@ from . import views
 urlpatterns = [
     path('categories/', views.CategoriesViewSet.as_view(), name='categories'),
     path('categories/<str:slug>/', views.CategoryDetailViewSet.as_view(), name='category-detail'),
+    path('categories/<str:slug>/courses/', views.category_courses_view, name='category-courses'),
     path('courses/', views.CourseViewSet.as_view(), name='courses'),
     path('courses/<str:slug>/', views.CourseDetailViewSet.as_view(), name='courses-detail'),
-    path('modules/', views.ModuleViewSet.as_view(), name='modules'),
-    path('modules/<str:slug>/', views.ModelDetailViewSet.as_view(), name='modules-detail'),
-    path('course-teachers/', views.CourseTeacherViewSet.as_view(), name='course-teachers'),
-    path('course-teachers/<str:slug>/', views.CourseTeacherDetailViewSet.as_view(), name='course-teachers-detail'),
-    path('course-students/', views.CourseStudentViewSet.as_view(), name='course-students'),
-    path('course-students/<str:slug>/', views.CourseStudentDetailViewSet.as_view(), name='course-students-detail'),
-    path('category-course/<str:slug>/', views.CategoryCourseViewSet.as_view(), name='category-course'),
+    path('courses/<str:slug>/modules/', views.CourseModulesViewSet.as_view(), name='courses-modules'),
+    path('courses/<str:slug>/teachers/', views.CourseTeachersViewSet.as_view(), name='courses-teachers'),
 ]

@@ -35,6 +35,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         )
         return user
     
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.CustomUser
+        fields = ['id', 'phone_number', 'first_name', 'last_name']
+    
 class PasswordResetSerializer(serializers.Serializer):
     phone_number =serializers.CharField()
     password_1 = serializers.CharField(
