@@ -4,15 +4,20 @@ import { createContext, useEffect, useState } from "react";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [access, setAccess] = useState(null);
+    const [user, setUser] = useState(null);
 
-    const getAccess = () => {
-        setAccess(localStorage.getItem("access"));
+    const getUser = async (access) => {
+        const response = await axios.get("http://127.0.0.1:8000/profile/", {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+        });
+        setUser(response.data);
     };
 
     useEffect(() => {
-        getAccess();
-    }, [access]);
+        getUser(localStorage.getItem("access"));
+    }, []);
 
     const login = async (formData) => {
         const response = await axios.post(
@@ -24,18 +29,18 @@ export const AuthProvider = ({ children }) => {
         localStorage.setItem("access", access);
         localStorage.setItem("refresh", refresh);
 
-        setAccess(access);
+        getUser(access);
     };
 
     const logout = () => {
         localStorage.removeItem("access");
         localStorage.removeItem("refresh");
 
-        setAccess(null);
+        setUser(null);
     };
 
     return (
-        <AuthContext.Provider value={{ access, login, logout }}>
+        <AuthContext.Provider value={{ user, login, logout }}>
             {children}
         </AuthContext.Provider>
     );

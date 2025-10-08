@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Header from "./components/Header/Header";
+import Header from "./components/Header";
 import Home from "./Pages/Home";
 import CoursesDetail from "./Pages/CoursesDetail";
 import CategoriesDetail from "./Pages/CategoriesDetail";
 import Login from "./pages/Login";
 import { AuthProvider } from "./context/AuthContext";
+import Profile from "./Pages/Profile";
 
 function App() {
     return (
@@ -27,6 +28,7 @@ function App() {
                         element={<div className="container">Contact</div>}
                     />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Routes>
             </BrowserRouter>
         </AuthProvider>

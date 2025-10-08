@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { AuthContext } from "../../context/AuthContext";
+import { AuthContext } from "../context/AuthContext";
 
 function Header() {
-    const { access, logout } = useContext(AuthContext);
+    const { user, logout } = useContext(AuthContext);
 
     return (
         <header className="header">
@@ -21,7 +21,7 @@ function Header() {
                     <Link to="/contact">Contact</Link>
                 </li>
             </ul>
-            {access ? (
+            {user ? (
                 <div className="button-wrapper">
                     <Link to="/profile" className="button">
                         Profile

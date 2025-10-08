@@ -18,10 +18,10 @@ def registration_view(request):
         
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def protected_view(request):
-    return Response({
-        "message" : "This is a protected view."
-    })
+def profile_view(request):
+    user = request.user
+    serializer = serializers.UserSerializer(user)
+    return Response(serializer.data)
 
 @api_view(["POST"])
 def forgot_password_view(request):
